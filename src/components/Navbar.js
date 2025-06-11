@@ -29,22 +29,12 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
     window.scrollTo(0, 0);
   };
 
-  const toggleMobileMenu = (e) => {
-    e?.stopPropagation?.();
-    e?.preventDefault?.();
+  const toggleMobileMenu = () => {
     setIsMobileMenuOpen(prev => !prev);
   };
   
-  const closeMobileMenu = (e) => {
-    e?.stopPropagation?.();
-    e?.preventDefault?.();
+  const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
-  };
-  
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      closeMobileMenu(e);
-    }
   };
 
   return (
@@ -89,7 +79,8 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button
-              onClick={(e) => toggleMobileMenu(e)}
+              type="button"
+              onClick={toggleMobileMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
@@ -111,21 +102,23 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
 
       {/* Mobile menu */}
       <div 
-        className={`fixed inset-0 z-40 transition-all duration-300 ease-in-out transform ${
-          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-        } md:hidden`}
+        className={`fixed inset-0 z-40 ${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden`}
       >
         {/* Overlay */}
-        <div 
-          className={`fixed inset-0 bg-black transition-opacity duration-300 ${
-            isMobileMenuOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
-          }`}
-          onClick={handleOverlayClick}
-          aria-hidden="true"
-        ></div>
+        {isMobileMenuOpen && (
+          <div 
+            className="fixed inset-0 bg-black opacity-50"
+            onClick={closeMobileMenu}
+            aria-hidden="true"
+          />
+        )}
         
         {/* Menu content */}
-        <div className="relative z-50 bg-[#8B5E3C] shadow-xl w-4/5 max-w-sm h-full overflow-y-auto transition-transform duration-300 ease-in-out">
+        <div 
+          className={`fixed left-0 top-0 z-50 bg-[#8B5E3C] shadow-xl w-4/5 max-w-sm h-full overflow-y-auto transform transition-transform duration-300 ease-in-out ${
+            isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
           {/* Add some padding at the bottom to ensure all items are accessible */}
           <style jsx global>{`
             @media (max-height: 600px) {

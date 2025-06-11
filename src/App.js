@@ -10,29 +10,17 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-  // Handle body scroll and escape key when mobile menu is open
+  // Handle body scroll when mobile menu is open
   useEffect(() => {
-    // Handle body scroll
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
-      
-      // Handle escape key
-      const handleEscape = (e) => {
-        if (e.key === 'Escape') {
-          setIsMobileMenuOpen(false);
-        }
-      };
-      
-      document.addEventListener('keydown', handleEscape);
-      
-      // Cleanup function
-      return () => {
-        document.body.style.overflow = 'auto';
-        document.removeEventListener('keydown', handleEscape);
-      };
     } else {
       document.body.style.overflow = 'auto';
     }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
   }, [isMobileMenuOpen]);
 
   // Close menu when navigating
@@ -40,7 +28,7 @@ function App() {
     if (isMobileMenuOpen) {
       setIsMobileMenuOpen(false);
     }
-  }, [currentPage, isMobileMenuOpen]);
+  }, [currentPage]);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F9F6F1] text-[#333333] overflow-x-hidden">
