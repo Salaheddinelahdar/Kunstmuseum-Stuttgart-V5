@@ -35,7 +35,7 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
   };
 
   return (
-    <nav className={`bg-[#C19A6B] shadow-lg sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'py-2' : 'py-0'}`}>
+    <nav className={`bg-[#8B5E3C] shadow-lg sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'py-2' : 'py-0'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div 
@@ -48,20 +48,26 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-6 lg:space-x-8">
             <button
-              className={`text-white/90 hover:text-[#8B5E3C] font-medium transition-colors text-sm md:text-base ${currentPage === 'home' ? 'underline' : ''}`}
-              onClick={() => handleNavClick('home')}
+              className={`text-white/90 hover:text-[#F9F6F1] hover:bg-[#A67C52] px-3 py-2 rounded-md font-medium transition-colors text-sm md:text-base ${
+                currentPage === 'home' ? 'bg-[#A67C52] text-white' : ''
+              }`}
+              onClick={(e) => handleNavClick('home', e)}
             >
               Home
             </button>
             <button
-              className={`text-white/90 hover:text-[#8B5E3C] font-medium transition-colors text-sm md:text-base ${currentPage === 'about' ? 'underline' : ''}`}
-              onClick={() => handleNavClick('about')}
+              className={`text-white/90 hover:text-[#F9F6F1] hover:bg-[#A67C52] px-3 py-2 rounded-md font-medium transition-colors text-sm md:text-base ${
+                currentPage === 'about' ? 'bg-[#A67C52] text-white' : ''
+              }`}
+              onClick={(e) => handleNavClick('about', e)}
             >
               About
             </button>
             <button
-              className={`text-white/90 hover:text-[#8B5E3C] font-medium transition-colors text-sm md:text-base ${currentPage === 'contact' ? 'underline' : ''}`}
-              onClick={() => handleNavClick('contact')}
+              className={`text-white/90 hover:text-[#F9F6F1] hover:bg-[#A67C52] px-3 py-2 rounded-md font-medium transition-colors text-sm md:text-base ${
+                currentPage === 'contact' ? 'bg-[#A67C52] text-white' : ''
+              }`}
+              onClick={(e) => handleNavClick('contact', e)}
             >
               Contact
             </button>
@@ -105,8 +111,16 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
         ></div>
         
         {/* Menu content */}
-        <div className="relative z-50 bg-[#C19A6B] shadow-xl w-4/5 max-w-sm h-full overflow-y-auto transition-transform duration-300 ease-in-out">
-          <div className="flex justify-between items-center p-4 border-b border-[#8B5E3C]">
+        <div className="relative z-50 bg-[#8B5E3C] shadow-xl w-4/5 max-w-sm h-full overflow-y-auto transition-transform duration-300 ease-in-out">
+          {/* Add some padding at the bottom to ensure all items are accessible */}
+          <style jsx global>{`
+            @media (max-height: 600px) {
+              .mobile-menu-container {
+                padding-bottom: 100px;
+              }
+            }
+          `}</style>
+          <div className="flex justify-between items-center p-4 border-b border-[#A67C52] sticky top-0 bg-[#8B5E3C] z-10">
             <span className="text-white font-semibold">Menu</span>
             <button
               onClick={() => setIsMobileMenuOpen(false)}
@@ -117,7 +131,7 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
             </button>
           </div>
           
-          <nav className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
+          <nav className="px-2 pt-2 pb-24 space-y-1 sm:px-3 mobile-menu-container">
             <button
               onClick={(e) => handleNavClick('home', e)}
               className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 transition-colors ${
