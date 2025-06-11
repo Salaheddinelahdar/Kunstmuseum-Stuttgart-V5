@@ -15,7 +15,7 @@ function App() {
     if (isMobileMenuOpen) {
       setIsMobileMenuOpen(false);
     }
-  }, [currentPage]);
+  }, [currentPage, isMobileMenuOpen]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {

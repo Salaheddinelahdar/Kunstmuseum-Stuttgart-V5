@@ -14,9 +14,14 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [scrolled]);
+    // Add event listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Clean up
+    return () => {
+      window.removeEventListener('scroll', handleScroll, { passive: true });
+    };
+  }, [scrolled, setScrolled]);
 
   const handleNavClick = (page) => {
     setCurrentPage(page);
