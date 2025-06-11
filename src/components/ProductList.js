@@ -8,7 +8,7 @@ const itemsWithCategories = [
     price: "$45",
     category: "furniture",
     description: "Classic wooden chair, sturdy and stylish. Perfect for any vintage decor.",
-    image: "/pictures/vintage wooden chair used.jpg"
+    image: process.env.PUBLIC_URL + "/pictures/vintage wooden chair used.jpg"
   },
   {
     id: 2,
@@ -16,7 +16,7 @@ const itemsWithCategories = [
     price: "$30",
     category: "home-decor",
     description: "Beautiful antique lamp, adds a warm glow to any room.",
-    image: "/pictures/antique table lamp.jpg"
+    image: process.env.PUBLIC_URL + "/pictures/antique table lamp.jpg"
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ const itemsWithCategories = [
     price: "$120",
     category: "sports",
     description: "Reliable mountain bike, ready for new adventures.",
-    image: "/pictures/used mountain bike.jpg"
+    image: process.env.PUBLIC_URL + "/pictures/used mountain bike.jpg"
   },
   {
     id: 4,
@@ -32,7 +32,7 @@ const itemsWithCategories = [
     price: "$95",
     category: "furniture",
     description: "Comfortable sofa, gently used, perfect for your living room.",
-    image: "/pictures/second-hand sofa.jpg"
+    image: process.env.PUBLIC_URL + "/pictures/second-hand sofa.jpg"
   },
   {
     id: 5,
@@ -40,7 +40,7 @@ const itemsWithCategories = [
     price: "$65",
     category: "electronics",
     description: "Vintage record player, works well, great for music lovers.",
-    image: "/pictures/old vinyl record player.jpg"
+    image: process.env.PUBLIC_URL + "/pictures/old vinyl record player.jpg"
   },
   {
     id: 6,
@@ -48,7 +48,7 @@ const itemsWithCategories = [
     price: "$180",
     category: "electronics",
     description: "DSLR camera in good condition, perfect for photography enthusiasts.",
-    image: "/pictures/used dslr camera.jpg"
+    image: process.env.PUBLIC_URL + "/pictures/used dslr camera.jpg"
   },
   {
     id: 7,
@@ -56,7 +56,7 @@ const itemsWithCategories = [
     price: "$55",
     category: "furniture",
     description: "Handcrafted rustic wood coffee table, unique and charming.",
-    image: "/pictures/antero stump coffee Table.jpg"
+    image: process.env.PUBLIC_URL + "/pictures/antero stump coffee Table.jpg"
   },
   {
     id: 8,
@@ -64,7 +64,7 @@ const itemsWithCategories = [
     price: "$25",
     category: "home-decor",
     description: "Classic wall clock, keeps perfect time, elegant design.",
-    image: "/pictures/classic wall clock.jpg"
+    image: process.env.PUBLIC_URL + "/pictures/classic wall clock.jpg"
   },
   {
     id: 9,
@@ -72,7 +72,7 @@ const itemsWithCategories = [
     price: "$35",
     category: "appliances",
     description: "Used kitchen mixer, works great for all your baking needs.",
-    image: "/pictures/kitchen mixer (used).jpg"
+    image: process.env.PUBLIC_URL + "/pictures/kitchen mixer (used).jpg"
   },
   {
     id: 10,
@@ -80,7 +80,7 @@ const itemsWithCategories = [
     price: "$12",
     category: "books",
     description: "Set of 5 classic books, gently used, great for readers.",
-    image: "/pictures/second-hand books (set of 5 ).jpg"
+    image: process.env.PUBLIC_URL + "/pictures/second-hand books (set of 5 ).jpg"
   },
   {
     id: 11,
@@ -88,7 +88,7 @@ const itemsWithCategories = [
     price: "$40",
     category: "furniture",
     description: "Vintage school desk, solid wood, full of character.",
-    image: "/pictures/old school desk.jpg"
+    image: process.env.PUBLIC_URL + "/pictures/old school desk.jpg"
   },
   {
     id: 12,
@@ -96,7 +96,7 @@ const itemsWithCategories = [
     price: "$28",
     category: "baby",
     description: "Second-hand baby stroller, clean and in good working order.",
-    image: "/pictures/used baby stroller.jpg"
+    image: process.env.PUBLIC_URL + "/pictures/used baby stroller.jpg"
   }
 ];
 
