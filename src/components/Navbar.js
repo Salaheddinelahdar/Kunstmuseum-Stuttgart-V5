@@ -81,28 +81,38 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
       </div>
 
       {/* Mobile menu */}
-      <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-[#C19A6B] bg-opacity-95">
-          <button
-            onClick={() => handleNavClick('home')}
-            className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 ${currentPage === 'home' ? 'bg-[#8B5E3C] bg-opacity-25' : ''}`}
-          >
-            Home
-          </button>
-          <button
-            onClick={() => handleNavClick('about')}
-            className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 ${currentPage === 'about' ? 'bg-[#8B5E3C] bg-opacity-25' : ''}`}
-          >
-            About
-          </button>
-          <button
-            onClick={() => handleNavClick('contact')}
-            className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 ${currentPage === 'contact' ? 'bg-[#8B5E3C] bg-opacity-25' : ''}`}
-          >
-            Contact
-          </button>
+      {isMobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 z-40">
+          {/* Overlay */}
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50"
+            onClick={() => setIsMobileMenuOpen(false)}
+          ></div>
+          {/* Menu content */}
+          <div className="relative z-50 bg-[#C19A6B] shadow-xl w-4/5 max-w-sm h-full overflow-y-auto">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              <button
+                onClick={() => handleNavClick('home')}
+                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 ${currentPage === 'home' ? 'bg-[#8B5E3C] bg-opacity-25' : ''}`}
+              >
+                Home
+              </button>
+              <button
+                onClick={() => handleNavClick('about')}
+                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 ${currentPage === 'about' ? 'bg-[#8B5E3C] bg-opacity-25' : ''}`}
+              >
+                About
+              </button>
+              <button
+                onClick={() => handleNavClick('contact')}
+                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 ${currentPage === 'contact' ? 'bg-[#8B5E3C] bg-opacity-25' : ''}`}
+              >
+                Contact
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 }
