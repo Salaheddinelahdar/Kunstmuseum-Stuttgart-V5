@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #F9F6F1;
+  color: #333333;
+  min-height: 100vh;
+}
+
+:root {
+  --primary: #C19A6B;
+  --accent: #8B5E3C;
+  --cta: #D2691E;
+}
+
+
+::-webkit-scrollbar {
+  height: 8px;
+  background: #e0f7fa;
+}
+::-webkit-scrollbar-thumb {
+  background: #b2ebf2;
+  border-radius: 8px;
+}
+
+/* Smooth transitions for cards and buttons */
+.card, button, .product-card {
+  transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+}
