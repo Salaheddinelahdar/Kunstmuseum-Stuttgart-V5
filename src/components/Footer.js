@@ -92,9 +92,32 @@ function Footer() {
               &copy; {currentYear} Kunstmuseum Stuttgart. All rights reserved.
             </p>
             <div className="flex space-x-6">
-              <a href="#" className="text-xs text-[#F0E6DB] hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="text-xs text-[#F0E6DB] hover:text-white transition-colors">Terms of Service</a>
-              <a href="#" className="text-xs text-[#F0E6DB] hover:text-white transition-colors">Sitemap</a>
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  // Add your privacy policy logic here
+                  console.log('Privacy Policy clicked');
+                }} 
+                className="text-xs text-[#F0E6DB] hover:text-white transition-colors focus:outline-none"
+              >
+                Privacy Policy
+              </button>
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  // Add your terms of service logic here
+                  console.log('Terms of Service clicked');
+                }} 
+                className="text-xs text-[#F0E6DB] hover:text-white transition-colors focus:outline-none"
+              >
+                Terms of Service
+              </button>
+              <a 
+                href="/sitemap" 
+                className="text-xs text-[#F0E6DB] hover:text-white transition-colors"
+              >
+                Sitemap
+              </a>
             </div>
           </div>
         </div>
