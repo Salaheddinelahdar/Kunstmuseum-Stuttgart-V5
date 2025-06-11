@@ -10,11 +10,24 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-  // Close mobile menu when navigating
+  // Close mobile menu when navigating or pressing Escape key
   useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
     if (isMobileMenuOpen) {
+      // Close menu when navigating
       setIsMobileMenuOpen(false);
+      // Add event listener for Escape key
+      document.addEventListener('keydown', handleEscape);
     }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
   }, [currentPage, isMobileMenuOpen]);
 
   // Prevent body scroll when mobile menu is open
