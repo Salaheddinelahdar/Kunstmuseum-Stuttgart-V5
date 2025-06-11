@@ -1,5 +1,19 @@
 import React, { useState, useEffect } from "react";
 
+// Import images
+import chairImg from "../images/vintage wooden chair used.jpg";
+import lampImg from "../images/antique table lamp.jpg";
+import bikeImg from "../images/used mountain bike.jpg";
+import sofaImg from "../images/second-hand sofa.jpg";
+import recordPlayerImg from "../images/old vinyl record player.jpg";
+import cameraImg from "../images/used dslr camera.jpg";
+import tableImg from "../images/antero stump coffee Table.jpg";
+import clockImg from "../images/classic wall clock.jpg";
+import mixerImg from "../images/kitchen mixer (used).jpg";
+import booksImg from "../images/second-hand books (set of 5 ).jpg";
+import deskImg from "../images/old school desk.jpg";
+import strollerImg from "../images/used baby stroller.jpg";
+
 // Add categories to items
 const itemsWithCategories = [
   {
@@ -8,7 +22,7 @@ const itemsWithCategories = [
     price: "$45",
     category: "furniture",
     description: "Classic wooden chair, sturdy and stylish. Perfect for any vintage decor.",
-    image: process.env.PUBLIC_URL + "/pictures/vintage wooden chair used.jpg"
+    image: chairImg
   },
   {
     id: 2,
@@ -16,7 +30,7 @@ const itemsWithCategories = [
     price: "$30",
     category: "home-decor",
     description: "Beautiful antique lamp, adds a warm glow to any room.",
-    image: process.env.PUBLIC_URL + "/pictures/antique table lamp.jpg"
+    image: lampImg
   },
   {
     id: 3,
@@ -24,7 +38,7 @@ const itemsWithCategories = [
     price: "$120",
     category: "sports",
     description: "Reliable mountain bike, ready for new adventures.",
-    image: process.env.PUBLIC_URL + "/pictures/used mountain bike.jpg"
+    image: bikeImg
   },
   {
     id: 4,
@@ -32,7 +46,7 @@ const itemsWithCategories = [
     price: "$95",
     category: "furniture",
     description: "Comfortable sofa, gently used, perfect for your living room.",
-    image: process.env.PUBLIC_URL + "/pictures/second-hand sofa.jpg"
+    image: sofaImg
   },
   {
     id: 5,
@@ -40,7 +54,7 @@ const itemsWithCategories = [
     price: "$65",
     category: "electronics",
     description: "Vintage record player, works well, great for music lovers.",
-    image: process.env.PUBLIC_URL + "/pictures/old vinyl record player.jpg"
+    image: recordPlayerImg
   },
   {
     id: 6,
@@ -48,7 +62,7 @@ const itemsWithCategories = [
     price: "$180",
     category: "electronics",
     description: "DSLR camera in good condition, perfect for photography enthusiasts.",
-    image: process.env.PUBLIC_URL + "/pictures/used dslr camera.jpg"
+    image: cameraImg
   },
   {
     id: 7,
@@ -56,7 +70,7 @@ const itemsWithCategories = [
     price: "$55",
     category: "furniture",
     description: "Handcrafted rustic wood coffee table, unique and charming.",
-    image: process.env.PUBLIC_URL + "/pictures/antero stump coffee Table.jpg"
+    image: tableImg
   },
   {
     id: 8,
@@ -64,7 +78,7 @@ const itemsWithCategories = [
     price: "$25",
     category: "home-decor",
     description: "Classic wall clock, keeps perfect time, elegant design.",
-    image: process.env.PUBLIC_URL + "/pictures/classic wall clock.jpg"
+    image: clockImg
   },
   {
     id: 9,
@@ -72,7 +86,7 @@ const itemsWithCategories = [
     price: "$35",
     category: "appliances",
     description: "Used kitchen mixer, works great for all your baking needs.",
-    image: process.env.PUBLIC_URL + "/pictures/kitchen mixer (used).jpg"
+    image: mixerImg
   },
   {
     id: 10,
@@ -80,7 +94,7 @@ const itemsWithCategories = [
     price: "$12",
     category: "books",
     description: "Set of 5 classic books, gently used, great for readers.",
-    image: process.env.PUBLIC_URL + "/pictures/second-hand books (set of 5 ).jpg"
+    image: booksImg
   },
   {
     id: 11,
@@ -88,7 +102,7 @@ const itemsWithCategories = [
     price: "$40",
     category: "furniture",
     description: "Vintage school desk, solid wood, full of character.",
-    image: process.env.PUBLIC_URL + "/pictures/old school desk.jpg"
+    image: deskImg
   },
   {
     id: 12,
@@ -96,7 +110,7 @@ const itemsWithCategories = [
     price: "$28",
     category: "baby",
     description: "Second-hand baby stroller, clean and in good working order.",
-    image: process.env.PUBLIC_URL + "/pictures/used baby stroller.jpg"
+    image: strollerImg
   }
 ];
 
