@@ -30,8 +30,19 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
   };
 
   const toggleMobileMenu = (e) => {
-    e.stopPropagation();
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    setIsMobileMenuOpen(prev => !prev);
+  };
+  
+  const closeMobileMenu = (e) => {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -76,11 +87,12 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button
-              onClick={toggleMobileMenu}
+              onClick={(e) => toggleMobileMenu(e)}
               className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
               aria-haspopup="true"
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
               <span className="sr-only">
                 {isMobileMenuOpen ? 'Close main menu' : 'Open main menu'}
@@ -123,8 +135,8 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
           <div className="flex justify-between items-center p-4 border-b border-[#A67C52] sticky top-0 bg-[#8B5E3C] z-10">
             <span className="text-white font-semibold">Menu</span>
             <button
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-white hover:text-[#8B5E3C] focus:outline-none"
+              onClick={closeMobileMenu}
+              className="rounded-md p-2 text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 focus:outline-none focus:ring-2 focus:ring-white"
               aria-label="Close menu"
             >
               <XMarkIcon className="h-6 w-6" aria-hidden="true" />
