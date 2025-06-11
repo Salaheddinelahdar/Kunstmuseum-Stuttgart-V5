@@ -10,43 +10,36 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-  // Handle Escape key press to close mobile menu
+  // Handle mobile menu state and effects
   useEffect(() => {
+    // Function to handle escape key press
     const handleEscape = (e) => {
       if (e.key === 'Escape' && isMobileMenuOpen) {
         setIsMobileMenuOpen(false);
       }
     };
 
-    // Close menu when navigating
+    // Handle body scroll
     if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
       document.addEventListener('keydown', handleEscape);
+    } else {
+      document.body.style.overflow = 'auto';
     }
 
+    // Cleanup function
     return () => {
+      document.body.style.overflow = 'auto';
       document.removeEventListener('keydown', handleEscape);
     };
   }, [isMobileMenuOpen]);
 
-  // Close mobile menu when navigating
+  // Close mobile menu when navigation occurs
   useEffect(() => {
     if (isMobileMenuOpen) {
       setIsMobileMenuOpen(false);
     }
-  }, [currentPage]);
-
-  // Prevent body scroll when mobile menu is open
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isMobileMenuOpen]);
+  }, [currentPage, isMobileMenuOpen]);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F9F6F1] text-[#333333] overflow-x-hidden">
