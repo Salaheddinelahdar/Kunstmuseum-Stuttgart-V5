@@ -23,10 +23,15 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
     };
   }, [scrolled, setScrolled]);
 
-  const handleNavClick = (page) => {
+  const handleNavClick = (page, e) => {
+    e.preventDefault();
     setCurrentPage(page);
-    setIsMobileMenuOpen(false);
     window.scrollTo(0, 0);
+  };
+
+  const toggleMobileMenu = (e) => {
+    e.stopPropagation();
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
@@ -65,7 +70,7 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={toggleMobileMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
@@ -114,7 +119,7 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
           
           <nav className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
             <button
-              onClick={() => handleNavClick('home')}
+              onClick={(e) => handleNavClick('home', e)}
               className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 transition-colors ${
                 currentPage === 'home' ? 'bg-[#8B5E3C] bg-opacity-25' : ''
               }`}
@@ -122,7 +127,7 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
               Home
             </button>
             <button
-              onClick={() => handleNavClick('about')}
+              onClick={(e) => handleNavClick('about', e)}
               className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 transition-colors ${
                 currentPage === 'about' ? 'bg-[#8B5E3C] bg-opacity-25' : ''
               }`}
@@ -130,7 +135,7 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
               About
             </button>
             <button
-              onClick={() => handleNavClick('contact')}
+              onClick={(e) => handleNavClick('contact', e)}
               className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 transition-colors ${
                 currentPage === 'contact' ? 'bg-[#8B5E3C] bg-opacity-25' : ''
               }`}
