@@ -30,19 +30,21 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
   };
 
   const toggleMobileMenu = (e) => {
-    if (e) {
-      e.stopPropagation();
-      e.preventDefault();
-    }
+    e?.stopPropagation?.();
+    e?.preventDefault?.();
     setIsMobileMenuOpen(prev => !prev);
   };
   
   const closeMobileMenu = (e) => {
-    if (e) {
-      e.stopPropagation();
-      e.preventDefault();
-    }
+    e?.stopPropagation?.();
+    e?.preventDefault?.();
     setIsMobileMenuOpen(false);
+  };
+  
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      closeMobileMenu(e);
+    }
   };
 
   return (
@@ -118,7 +120,7 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
           className={`fixed inset-0 bg-black transition-opacity duration-300 ${
             isMobileMenuOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
           }`}
-          onClick={() => setIsMobileMenuOpen(false)}
+          onClick={handleOverlayClick}
           aria-hidden="true"
         ></div>
         
