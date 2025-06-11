@@ -16,7 +16,6 @@ function Footer() {
               We're committed to sustainability and helping you find quality second-hand treasures.
             </p>
           </div>
-        
           
           {/* Contact Info */}
           <div className="space-y-4">
