@@ -5,48 +5,81 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const slides = [
   {
-    image: {
-      mobile: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
-      tablet: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80',
-      desktop: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1920&q=90'
-    },
-    title: 'Discover Amazing Deals',
-    subtitle: 'Find your next favorite item at unbeatable prices'
+    image: 'https://images.unsplash.com/photo-1600003014755-11a5f5d15d6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+    alt: 'Vintage collectibles on display',
+    title: 'Sell Your Treasures',
+    subtitle: 'Turn your vintage items into someone else\'s treasure'
   },
   {
-    image: {
-      mobile: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
-      tablet: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
-      desktop: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=90'
-    },
-    title: 'Quality Pre-Loved Items',
-    subtitle: 'Carefully selected items in great condition'
+    image: 'https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+    alt: 'Antique shop interior',
+    title: 'Discover Hidden Gems',
+    subtitle: 'Find unique vintage pieces for your collection'
   },
   {
-    image: {
-      mobile: 'https://images.unsplash.com/photo-1518655048521-f130df041f66?auto=format&fit=crop&w=800&q=80',
-      tablet: 'https://images.unsplash.com/photo-1518655048521-f130df041f66?auto=format&fit=crop&w=1200&q=80',
-      desktop: 'https://images.unsplash.com/photo-1518655048521-f130df041f66?auto=format&fit=crop&w=1920&q=90'
-    },
-    title: 'Sustainable Shopping',
-    subtitle: 'Help reduce waste by choosing pre-loved items'
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+    alt: 'Vintage home decor items',
+    title: 'Vintage Home Decor',
+    subtitle: 'Add character to your space with timeless pieces'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+    alt: 'Vintage furniture collection',
+    title: 'Quality Vintage Finds',
+    subtitle: 'Carefully selected pieces with history and charm'
   }
 ];
 
-const HeroCarousel = () => {
-  const [windowWidth, setWindowWidth] = useState(0);
+const HeroCarousel = ({ searchQuery, onSearchChange, onSearchSubmit }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [loadedImages, setLoadedImages] = useState({});
 
   useEffect(() => {
-    // Set initial width
-    setWindowWidth(window.innerWidth);
-    
-    // Update width on resize
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    
-    // Cleanup
-    return () => window.removeEventListener('resize', handleResize);
+    // Preload images
+    const loadImages = async () => {
+      const imagePromises = slides.map((slide, index) => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.src = slide.image;
+          img.onload = () => {
+            setLoadedImages(prev => ({
+              ...prev,
+              [index]: true
+            }));
+            resolve();
+          };
+          img.onerror = () => {
+            console.error(`Failed to load image: ${slide.image}`);
+            resolve();
+          };
+        });
+      });
+
+      await Promise.all(imagePromises);
+    };
+
+    loadImages();
   }, []);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const query = searchQuery.trim();
+    if (query) {
+      onSearchChange(query);
+      onSearchSubmit();
+      
+      // Scroll to products section after a small delay to allow state updates
+      setTimeout(() => {
+        const productsSection = document.getElementById('products-section');
+        if (productsSection) {
+          productsSection.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 100);
+    }
+  };
 
   const settings = {
     dots: true,
@@ -68,39 +101,61 @@ const HeroCarousel = () => {
     ),
     customPaging: i => (
       <button className="w-3 h-3 rounded-full bg-white/50 mx-1 focus:outline-none transition-all duration-300 hover:bg-white/75" />
-    )
-  };
-
-  // Function to get the appropriate image based on screen size
-  const getImageUrl = (slide) => {
-    if (windowWidth < 640) return slide.image.mobile; // Mobile
-    if (windowWidth < 1024) return slide.image.tablet; // Tablet
-    return slide.image.desktop; // Desktop
+    ),
+    beforeChange: (oldIndex, newIndex) => setCurrentSlide(newIndex)
   };
 
   return (
     <div className="relative w-full overflow-hidden">
-      <Slider {...settings}>
-        {slides.map((slide, i) => (
-          <div key={i} className="relative">
+      <Slider {...settings} className="w-full">
+        {slides.map((slide, index) => (
+          <div key={index} className="relative h-[400px] md:h-[80vh] w-full">
             <div 
-              className="h-[50vh] sm:h-[60vh] md:h-[70vh] w-full bg-cover bg-center transition-all duration-700 ease-in-out"
+              className="absolute inset-0 w-full h-full bg-cover bg-center"
               style={{
-                backgroundImage: `url(${getImageUrl(slide)})`,
-                backgroundPosition: 'center center',
+                backgroundImage: `url(${slide.image})`,
+                opacity: loadedImages[index] ? 1 : 0,
+                transition: 'opacity 0.5s ease-in-out',
                 backgroundSize: 'cover',
+                backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat'
               }}
-              aria-label={slide.title}
+              aria-label={slide.alt}
             >
-              <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
-                <div className="max-w-4xl mx-auto text-center px-4">
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg mb-3 sm:mb-4 md:mb-6 animate-fadeIn">
-                    {slide.title}
-                  </h1>
-                  <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 drop-shadow-md max-w-2xl mx-auto">
-                    {slide.subtitle}
-                  </p>
+              <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20">
+                <div className="container mx-auto px-4 h-full flex flex-col justify-center items-center text-center">
+                  <div className="w-full max-w-4xl">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white drop-shadow-lg">
+                      {slide.title}
+                    </h2>
+                    <p className="text-xl md:text-2xl mb-8 text-white/90 drop-shadow-md">
+                      {slide.subtitle}
+                    </p>
+                    
+                    {/* Search Bar */}
+                    <form onSubmit={handleSearch} className="relative max-w-2xl mx-auto">
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => onSearchChange(e.target.value)}
+                        className="w-full py-4 pl-6 pr-14 rounded-full bg-white/90 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#8B5E3C] focus:ring-offset-2 shadow-lg text-lg"
+                        placeholder="Search for products..."
+                      />
+                      <button 
+                        type="submit"
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#8B5E3C] text-white p-2 rounded-full hover:bg-[#6d4a30] transition-colors duration-200"
+                        aria-label="Search"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                      </button>
+                    </form>
+                    
+                    <p className="text-white/80 mt-4 text-sm md:text-base drop-shadow-sm">
+                      Browse our collection of handpicked items
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

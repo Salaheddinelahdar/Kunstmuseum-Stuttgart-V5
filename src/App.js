@@ -9,6 +9,8 @@ import Contact from './Contact';
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeSearchQuery, setActiveSearchQuery] = useState('');
   
   // Handle body scroll when mobile menu is open
   useEffect(() => {
@@ -64,7 +66,19 @@ function App() {
           <Contact />
         ) : (
           <>
-            <HeroCarousel />
+            <HeroCarousel 
+              searchQuery={searchQuery}
+              onSearchChange={(query) => {
+                setSearchQuery(query);
+                setActiveSearchQuery(query);
+              }}
+              onSearchSubmit={() => {
+                // If not on home page, navigate to home
+                if (currentPage !== 'home') {
+                  setCurrentPage('home');
+                }
+              }}
+            />
             
             {/* Centered main content headline/desc */}
             <section className="text-center py-8 sm:py-12 md:py-16 px-4 sm:px-6">
@@ -80,8 +94,12 @@ function App() {
               </div>
             </section>
             
-            <div className="pb-12 sm:pb-16 md:pb-20">
-              <ProductList setCurrentPage={setCurrentPage} />
+            <div id="products-section" className="pb-12 sm:pb-16 md:pb-20">
+              <ProductList 
+                setCurrentPage={setCurrentPage} 
+                searchQuery={activeSearchQuery}
+                onSearchChange={setSearchQuery}
+              />
             </div>
           </>
         )}

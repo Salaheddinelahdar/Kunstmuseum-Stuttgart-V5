@@ -33,8 +33,9 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
     if (e) {
       e.preventDefault();
       e.stopPropagation();
+      // Toggle the menu state
+      setIsMobileMenuOpen(prev => !prev);
     }
-    setIsMobileMenuOpen(prev => !prev);
   }, [setIsMobileMenuOpen]);
   
   const closeMobileMenu = useCallback((e) => {
@@ -108,72 +109,67 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <div 
-        className={`fixed inset-0 z-40 ${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden`}
-        onClick={closeMobileMenu}
-      >
-        {/* Overlay */}
+      {/* Mobile menu overlay */}
+      {isMobileMenuOpen && (
         <div 
-          className="fixed inset-0 bg-black opacity-50"
+          className="fixed inset-0 z-40 bg-black/50 md:hidden"
+          onClick={closeMobileMenu}
           aria-hidden="true"
         />
-        
-        {/* Menu content */}
-        <div 
-          className="fixed left-0 top-0 z-50 bg-[#8B5E3C] shadow-xl w-4/5 max-w-sm h-full overflow-y-auto transform transition-transform duration-300 ease-in-out"
-          onClick={(e) => e.stopPropagation()}
-          style={{
-            transform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(-100%)',
-            WebkitTransform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(-100%)'
-          }}
-        >
-          {/* Add some padding at the bottom to ensure all items are accessible */}
-          <style jsx global>{`
-            @media (max-height: 600px) {
-              .mobile-menu-container {
-                padding-bottom: 100px;
-              }
+      )}
+      
+      {/* Mobile menu content */}
+      <div 
+        className={`fixed inset-y-0 left-0 z-50 w-4/5 max-w-sm transform transition-transform duration-300 ease-in-out bg-[#8B5E3C] shadow-xl overflow-y-auto md:hidden ${
+          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Add some padding at the bottom to ensure all items are accessible */}
+        <style jsx global>{`
+          @media (max-height: 600px) {
+            .mobile-menu-container {
+              padding-bottom: 100px;
             }
-          `}</style>
-          <div className="flex justify-between items-center p-4 border-b border-[#A67C52] sticky top-0 bg-[#8B5E3C] z-10">
-            <span className="text-white font-semibold">Menu</span>
-            <button
-              onClick={closeMobileMenu}
-              className="rounded-md p-2 text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 focus:outline-none focus:ring-2 focus:ring-white"
-              aria-label="Close menu"
-            >
-              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
-          
-          <nav className="px-2 pt-2 pb-24 space-y-1 sm:px-3 mobile-menu-container">
-            <button
-              onClick={(e) => handleNavClick('home', e)}
-              className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 transition-colors ${
-                currentPage === 'home' ? 'bg-[#8B5E3C] bg-opacity-25' : ''
-              }`}
-            >
-              Home
-            </button>
-            <button
-              onClick={(e) => handleNavClick('about', e)}
-              className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 transition-colors ${
-                currentPage === 'about' ? 'bg-[#8B5E3C] bg-opacity-25' : ''
-              }`}
-            >
-              About
-            </button>
-            <button
-              onClick={(e) => handleNavClick('contact', e)}
-              className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 transition-colors ${
-                currentPage === 'contact' ? 'bg-[#8B5E3C] bg-opacity-25' : ''
-              }`}
-            >
-              Contact
-            </button>
-          </nav>
+          }
+        `}</style>
+        <div className="flex justify-between items-center p-4 border-b border-[#A67C52] sticky top-0 bg-[#8B5E3C] z-10">
+          <span className="text-white font-semibold">Menu</span>
+          <button
+            onClick={closeMobileMenu}
+            className="rounded-md p-2 text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 focus:outline-none focus:ring-2 focus:ring-white"
+            aria-label="Close menu"
+          >
+            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+          </button>
         </div>
+        
+        <nav className="px-2 pt-2 pb-24 space-y-1 sm:px-3 mobile-menu-container">
+          <button
+            onClick={(e) => handleNavClick('home', e)}
+            className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 transition-colors ${
+              currentPage === 'home' ? 'bg-[#8B5E3C] bg-opacity-25' : ''
+            }`}
+          >
+            Home
+          </button>
+          <button
+            onClick={(e) => handleNavClick('about', e)}
+            className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 transition-colors ${
+              currentPage === 'about' ? 'bg-[#8B5E3C] bg-opacity-25' : ''
+            }`}
+          >
+            About
+          </button>
+          <button
+            onClick={(e) => handleNavClick('contact', e)}
+            className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 transition-colors ${
+              currentPage === 'contact' ? 'bg-[#8B5E3C] bg-opacity-25' : ''
+            }`}
+          >
+            Contact
+          </button>
+        </nav>
       </div>
     </nav>
   );
