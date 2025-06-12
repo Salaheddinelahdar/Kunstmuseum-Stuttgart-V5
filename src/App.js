@@ -14,12 +14,18 @@ function App() {
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
     } else {
       document.body.style.overflow = 'auto';
+      document.body.style.position = '';
+      document.body.style.width = '';
     }
     
     return () => {
       document.body.style.overflow = 'auto';
+      document.body.style.position = '';
+      document.body.style.width = '';
     };
   }, [isMobileMenuOpen]);
 
@@ -28,7 +34,19 @@ function App() {
     if (isMobileMenuOpen) {
       setIsMobileMenuOpen(false);
     }
-  }, [currentPage]);
+  }, [currentPage, isMobileMenuOpen]);
+  
+  // Handle escape key to close menu
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isMobileMenuOpen]);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F9F6F1] text-[#333333] overflow-x-hidden">

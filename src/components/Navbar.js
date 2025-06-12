@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenuOpen }) {
@@ -29,13 +29,21 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
     window.scrollTo(0, 0);
   };
 
-  const toggleMobileMenu = () => {
+  const toggleMobileMenu = useCallback((e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     setIsMobileMenuOpen(prev => !prev);
-  };
+  }, [setIsMobileMenuOpen]);
   
-  const closeMobileMenu = () => {
+  const closeMobileMenu = useCallback((e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     setIsMobileMenuOpen(false);
-  };
+  }, [setIsMobileMenuOpen]);
 
   return (
     <nav className={`bg-[#8B5E3C] shadow-lg sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'py-2' : 'py-0'}`}>
@@ -103,21 +111,22 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
       {/* Mobile menu */}
       <div 
         className={`fixed inset-0 z-40 ${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden`}
+        onClick={closeMobileMenu}
       >
         {/* Overlay */}
-        {isMobileMenuOpen && (
-          <div 
-            className="fixed inset-0 bg-black opacity-50"
-            onClick={closeMobileMenu}
-            aria-hidden="true"
-          />
-        )}
+        <div 
+          className="fixed inset-0 bg-black opacity-50"
+          aria-hidden="true"
+        />
         
         {/* Menu content */}
         <div 
-          className={`fixed left-0 top-0 z-50 bg-[#8B5E3C] shadow-xl w-4/5 max-w-sm h-full overflow-y-auto transform transition-transform duration-300 ease-in-out ${
-            isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+          className="fixed left-0 top-0 z-50 bg-[#8B5E3C] shadow-xl w-4/5 max-w-sm h-full overflow-y-auto transform transition-transform duration-300 ease-in-out"
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            transform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(-100%)',
+            WebkitTransform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(-100%)'
+          }}
         >
           {/* Add some padding at the bottom to ensure all items are accessible */}
           <style jsx global>{`
