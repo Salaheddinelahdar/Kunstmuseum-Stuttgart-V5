@@ -119,20 +119,13 @@ const categories = [...new Set(itemsWithCategories.map(item => item.category))];
 
 function ProductList({ setCurrentPage: setAppPage, searchQuery = '', onSearchChange }) {
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [currentPage, setCurrentPage] = useState(1);
   
   // Update search query when it changes
   useEffect(() => {
     if (searchQuery) {
       setSelectedCategory('all');
-      setCurrentPage(1);
     }
   }, [searchQuery]);
-
-  // Reset to first page when filter changes
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedCategory]);
 
   // Filter items based on selected category and search query
   const filteredItems = itemsWithCategories.filter(item => {
@@ -152,10 +145,6 @@ function ProductList({ setCurrentPage: setAppPage, searchQuery = '', onSearchCha
     
     return matchesCategory;
   });
-
-  const itemsPerPage = 9;
-  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
-  const paginatedItems = filteredItems.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   // Scroll handler for horizontal scrolling
   const scrollContainerRef = React.useRef(null);
@@ -178,11 +167,6 @@ function ProductList({ setCurrentPage: setAppPage, searchQuery = '', onSearchCha
       return () => container.removeEventListener('scroll', checkScroll);
     }
   }, [filteredItems]);
-
-  // Reset to first page when search query changes
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery]);
 
   return (
     <section className="w-full bg-[#F9F6F1] py-6 sm:py-8 md:py-12">

@@ -22,6 +22,7 @@ const slides = [
     title: 'Vintage Home Decor',
     subtitle: 'Add character to your space with timeless pieces'
   },
+
   {
     image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
     alt: 'Vintage furniture collection',
@@ -31,8 +32,8 @@ const slides = [
 ];
 
 const HeroCarousel = ({ searchQuery, onSearchChange, onSearchSubmit }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [loadedImages, setLoadedImages] = useState({});
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     // Preload images
