@@ -33,6 +33,7 @@ const slides = [
 
 const HeroCarousel = ({ searchQuery, onSearchChange, onSearchSubmit }) => {
   const [loadedImages, setLoadedImages] = useState({});
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     // Preload images
@@ -102,7 +103,7 @@ const HeroCarousel = ({ searchQuery, onSearchChange, onSearchSubmit }) => {
     customPaging: i => (
       <button className="w-3 h-3 rounded-full bg-white/50 mx-1 focus:outline-none transition-all duration-300 hover:bg-white/75" />
     ),
-    beforeChange: () => {}
+    beforeChange: (oldIndex, newIndex) => setCurrentSlide(newIndex)
   };
 
   return (
