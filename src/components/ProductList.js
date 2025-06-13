@@ -1,123 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-// Import images
-import chairImg from "../images/vintage wooden chair used.jpg";
-import lampImg from "../images/antique table lamp.jpg";
-import bikeImg from "../images/used mountain bike.jpg";
-import sofaImg from "../images/second-hand sofa.jpg";
-import recordPlayerImg from "../images/old vinyl record player.jpg";
-import cameraImg from "../images/used dslr camera.jpg";
-import tableImg from "../images/antero stump coffee Table.jpg";
-import clockImg from "../images/classic wall clock.jpg";
-import mixerImg from "../images/kitchen mixer (used).jpg";
-import booksImg from "../images/second-hand books (set of 5 ).jpg";
-import deskImg from "../images/old school desk.jpg";
-import strollerImg from "../images/used baby stroller.jpg";
-
-// Add categories to items
-const itemsWithCategories = [
-  {
-    id: 1,
-    name: "Vintage Wooden Chair",
-    price: "$45",
-    category: "furniture",
-    description: "Classic wooden chair, sturdy and stylish. Perfect for any vintage decor.",
-    image: chairImg
-  },
-  {
-    id: 2,
-    name: "Antique Table Lamp",
-    price: "$30",
-    category: "home-decor",
-    description: "Beautiful antique lamp, adds a warm glow to any room.",
-    image: lampImg
-  },
-  {
-    id: 3,
-    name: "Used Mountain Bike",
-    price: "$120",
-    category: "sports",
-    description: "Reliable mountain bike, ready for new adventures.",
-    image: bikeImg
-  },
-  {
-    id: 4,
-    name: "Second-hand Sofa",
-    price: "$95",
-    category: "furniture",
-    description: "Comfortable sofa, gently used, perfect for your living room.",
-    image: sofaImg
-  },
-  {
-    id: 5,
-    name: "Old Vinyl Record Player",
-    price: "$65",
-    category: "electronics",
-    description: "Vintage record player, works well, great for music lovers.",
-    image: recordPlayerImg
-  },
-  {
-    id: 6,
-    name: "Used DSLR Camera",
-    price: "$180",
-    category: "electronics",
-    description: "DSLR camera in good condition, perfect for photography enthusiasts.",
-    image: cameraImg
-  },
-  {
-    id: 7,
-    name: "Rustic Coffee Table",
-    price: "$55",
-    category: "furniture",
-    description: "Handcrafted rustic wood coffee table, unique and charming.",
-    image: tableImg
-  },
-  {
-    id: 8,
-    name: "Classic Wall Clock",
-    price: "$25",
-    category: "home-decor",
-    description: "Classic wall clock, keeps perfect time, elegant design.",
-    image: clockImg
-  },
-  {
-    id: 9,
-    name: "Kitchen Mixer (Used)",
-    price: "$35",
-    category: "appliances",
-    description: "Used kitchen mixer, works great for all your baking needs.",
-    image: mixerImg
-  },
-  {
-    id: 10,
-    name: "Second-hand Books (Set of 5)",
-    price: "$12",
-    category: "books",
-    description: "Set of 5 classic books, gently used, great for readers.",
-    image: booksImg
-  },
-  {
-    id: 11,
-    name: "Old School Desk",
-    price: "$40",
-    category: "furniture",
-    description: "Vintage school desk, solid wood, full of character.",
-    image: deskImg
-  },
-  {
-    id: 12,
-    name: "Used Baby Stroller",
-    price: "$28",
-    category: "baby",
-    description: "Second-hand baby stroller, clean and in good working order.",
-    image: strollerImg
-  }
-];
-
-// Extract unique categories
-const categories = [...new Set(itemsWithCategories.map(item => item.category))];
-
-function ProductList({ setCurrentPage: setAppPage, searchQuery = '', onSearchChange }) {
+function ProductList({ products = [], onProductSelect, searchQuery = '', onSearchChange }) {
+  // Extract unique categories from products
+  const categories = ['all', ...new Set(products.map(item => item.category))];
   const [selectedCategory, setSelectedCategory] = useState('all');
   
   // Update search query when it changes
@@ -127,8 +12,8 @@ function ProductList({ setCurrentPage: setAppPage, searchQuery = '', onSearchCha
     }
   }, [searchQuery]);
 
-  // Filter items based on selected category and search query
-  const filteredItems = itemsWithCategories.filter(item => {
+  // Filter products based on selected category and search query
+  const filteredItems = products.filter(item => {
     // Filter by category
     const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
     
@@ -191,16 +76,6 @@ function ProductList({ setCurrentPage: setAppPage, searchQuery = '', onSearchCha
           <div className="relative w-full max-w-4xl">
             <div className="flex overflow-x-auto pb-4 scrollbar-hide">
               <div className="flex space-x-2 sm:space-x-3 px-2">
-                <button
-                  onClick={() => setSelectedCategory('all')}
-                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium capitalize transition-all whitespace-nowrap ${
-                    selectedCategory === 'all'
-                      ? "bg-[#8B5E3C] text-white shadow-md transform scale-105"
-                      : "bg-white text-[#8B5E3C] border border-[#C19A6B] hover:bg-gray-50 hover:shadow-sm"
-                  }`}
-                >
-                  All Items
-                </button>
                 {categories.map((category) => (
                   <button
                     key={category}
@@ -237,7 +112,8 @@ function ProductList({ setCurrentPage: setAppPage, searchQuery = '', onSearchCha
                 {filteredItems.map((item) => (
                   <div
                     key={item.id}
-                    className="flex-shrink-0 w-64 bg-white border border-[#E8D9C0] rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md hover:border-[#8B5E3C] hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden"
+                    onClick={() => onProductSelect(item)}
+                    className="flex-shrink-0 w-64 bg-white border border-[#E8D9C0] rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md hover:border-[#8B5E3C] hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden cursor-pointer"
                   >
                     <div className="relative h-48 overflow-hidden group">
                       <img
@@ -262,10 +138,9 @@ function ProductList({ setCurrentPage: setAppPage, searchQuery = '', onSearchCha
                       </p>
                       <button
                         className="mt-auto w-full py-2 bg-[#D2691E] hover:bg-[#8B5E3C] text-white text-xs font-semibold rounded-lg transition-colors duration-200 flex items-center justify-center space-x-1.5"
-                        onClick={() => {
-                          if (typeof setAppPage === 'function') {
-                            setAppPage('contact');
-                          }
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onProductSelect(item, true);
                         }}
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

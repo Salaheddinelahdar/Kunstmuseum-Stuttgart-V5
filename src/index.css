@@ -29,3 +29,24 @@ body {
 .card, button, .product-card {
   transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
 }
+
+/* Custom scrollbar styles */
+.scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: #C19A6B #f1f1f1;
+}
+
+.scroll-container::-webkit-scrollbar {
+  height: 8px;
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #C19A6B;
+  border-radius: 4px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #8B5E3C;
+}

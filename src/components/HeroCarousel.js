@@ -5,12 +5,6 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const slides = [
   {
-    image: 'https://images.unsplash.com/photo-1600003014755-11a5f5d15d6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-    alt: 'Vintage collectibles on display',
-    title: 'Sell Your Treasures',
-    subtitle: 'Turn your vintage items into someone else\'s treasure'
-  },
-  {
     image: 'https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
     alt: 'Antique shop interior',
     title: 'Discover Hidden Gems',
@@ -22,12 +16,11 @@ const slides = [
     title: 'Vintage Home Decor',
     subtitle: 'Add character to your space with timeless pieces'
   },
-
   {
     image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
     alt: 'Vintage furniture collection',
-    title: 'Quality Vintage Finds',
-    subtitle: 'Carefully selected pieces with history and charm'
+    title: 'Sell Your Vintage Furniture',
+    subtitle: 'Get the best value for your pre-loved furniture pieces'
   }
 ];
 

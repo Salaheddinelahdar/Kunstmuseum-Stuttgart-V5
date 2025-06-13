@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import React, { useState, useEffect } from 'react';
 
-function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenuOpen }) {
-  // Use the isMobileMenuOpen prop instead of local state
+function Navbar({ currentPage, setCurrentPage }) {
   const [scrolled, setScrolled] = useState(false);
 
   // Handle scroll effect for navbar
@@ -29,22 +27,7 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
     window.scrollTo(0, 0);
   };
 
-  const toggleMobileMenu = useCallback((e) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      // Toggle the menu state
-      setIsMobileMenuOpen(prev => !prev);
-    }
-  }, [setIsMobileMenuOpen]);
-  
-  const closeMobileMenu = useCallback((e) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    setIsMobileMenuOpen(false);
-  }, [setIsMobileMenuOpen]);
+
 
   return (
     <nav className={`bg-[#8B5E3C] shadow-lg sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'py-2' : 'py-0'}`}>
@@ -67,110 +50,13 @@ function Navbar({ currentPage, setCurrentPage, isMobileMenuOpen, setIsMobileMenu
             >
               Home
             </button>
-            <button
-              className={`text-white/90 hover:text-[#F9F6F1] hover:bg-[#A67C52] px-3 py-2 rounded-md font-medium transition-colors text-sm md:text-base ${
-                currentPage === 'about' ? 'bg-[#A67C52] text-white' : ''
-              }`}
-              onClick={(e) => handleNavClick('about', e)}
-            >
-              About
-            </button>
-            <button
-              className={`text-white/90 hover:text-[#F9F6F1] hover:bg-[#A67C52] px-3 py-2 rounded-md font-medium transition-colors text-sm md:text-base ${
-                currentPage === 'contact' ? 'bg-[#A67C52] text-white' : ''
-              }`}
-              onClick={(e) => handleNavClick('contact', e)}
-            >
-              Contact
-            </button>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              type="button"
-              onClick={toggleMobileMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-              aria-expanded={isMobileMenuOpen}
-              aria-controls="mobile-menu"
-              aria-haspopup="true"
-              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-            >
-              <span className="sr-only">
-                {isMobileMenuOpen ? 'Close main menu' : 'Open main menu'}
-              </span>
-              {isMobileMenuOpen ? (
-                <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-              )}
-            </button>
-          </div>
+
         </div>
       </div>
 
-      {/* Mobile menu overlay */}
-      {isMobileMenuOpen && (
-        <div 
-          className="fixed inset-0 z-40 bg-black/50 md:hidden"
-          onClick={closeMobileMenu}
-          aria-hidden="true"
-        />
-      )}
-      
-      {/* Mobile menu content */}
-      <div 
-        className={`fixed inset-y-0 left-0 z-50 w-4/5 max-w-sm transform transition-transform duration-300 ease-in-out bg-[#8B5E3C] shadow-xl overflow-y-auto md:hidden ${
-          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Add some padding at the bottom to ensure all items are accessible */}
-        <style jsx global>{`
-          @media (max-height: 600px) {
-            .mobile-menu-container {
-              padding-bottom: 100px;
-            }
-          }
-        `}</style>
-        <div className="flex justify-between items-center p-4 border-b border-[#A67C52] sticky top-0 bg-[#8B5E3C] z-10">
-          <span className="text-white font-semibold">Menu</span>
-          <button
-            onClick={closeMobileMenu}
-            className="rounded-md p-2 text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 focus:outline-none focus:ring-2 focus:ring-white"
-            aria-label="Close menu"
-          >
-            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-          </button>
-        </div>
-        
-        <nav className="px-2 pt-2 pb-24 space-y-1 sm:px-3 mobile-menu-container">
-          <button
-            onClick={(e) => handleNavClick('home', e)}
-            className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 transition-colors ${
-              currentPage === 'home' ? 'bg-[#8B5E3C] bg-opacity-25' : ''
-            }`}
-          >
-            Home
-          </button>
-          <button
-            onClick={(e) => handleNavClick('about', e)}
-            className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 transition-colors ${
-              currentPage === 'about' ? 'bg-[#8B5E3C] bg-opacity-25' : ''
-            }`}
-          >
-            About
-          </button>
-          <button
-            onClick={(e) => handleNavClick('contact', e)}
-            className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium text-white hover:bg-[#8B5E3C] hover:bg-opacity-25 transition-colors ${
-              currentPage === 'contact' ? 'bg-[#8B5E3C] bg-opacity-25' : ''
-            }`}
-          >
-            Contact
-          </button>
-        </nav>
-      </div>
+
     </nav>
   );
 }
